@@ -1,14 +1,14 @@
 import { User } from "discord.js";
 import { Command } from "../../models/Command";
 import { BattieTimer, timers } from "./timer-module";
-import moment from "moment"
+import moment from "moment";
 
 const setNewTimer = (
     timerName: string,
     timeout: NodeJS.Timeout,
     message: string | null,
     user: User,
-    seconds: number,
+    seconds: number
 ) => {
     if (!timers.has(user.id)) {
         timers.set(user.id, []);
@@ -19,7 +19,7 @@ const setNewTimer = (
         name: timerName,
         timeout,
         message,
-        timerFinishesOn: moment().add(seconds, 'seconds'),
+        timerFinishesOn: moment().add(seconds, "seconds"),
     };
 
     timers.get(user.id)!!.push(battieTimer);
@@ -30,6 +30,12 @@ export const setTimer: Command = {
     description: "set_timer <name> <h:m:s> [message]",
     execute: (message, args) => {
         const channel = message.channel;
+
+        if (!channel) {
+            message.channel.send(`De Battiebot kan je geen DMs sturen`);
+            return;
+        }
+
         const user = message.author;
 
         // Get timer name
@@ -38,7 +44,7 @@ export const setTimer: Command = {
             channel.send(
                 `Timer heeft geen naam. Command format: ${setTimer.description}`
             );
-            return
+            return;
         }
 
         // Get timer times
@@ -60,10 +66,8 @@ export const setTimer: Command = {
             const message = args.join(" ") || null;
 
             const newTimer = setTimeout(() => {
-                channel.send(
-                    `<@${
-                        user.id
-                    }>, je timer '${timerName}' is afgelopen! Bericht: ${
+                user.send(
+                    `Je timer '${timerName}' is afgelopen! Bericht: ${
                         message ? message : ""
                     }`
                 );

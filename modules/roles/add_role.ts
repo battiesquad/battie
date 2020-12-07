@@ -2,7 +2,7 @@ import { Command } from "../../models/Command";
 
 export const addRole: Command = {
     name: "add_role",
-    description: "Voegt een role toe",
+    description: "add_role <@user> <role-name>",
     execute(message, args) {
         const member = message.mentions.members?.first();
         const rol = args.slice(1);

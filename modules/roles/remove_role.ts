@@ -2,7 +2,7 @@ import { Command } from "../../models/Command";
 
 export const removeRole: Command = {
     name: "remove_role",
-    description: "haalt  een role weg",
+    description: "remove_role <@user> <role-name>",
     execute(message, args) {
         const member = message.mentions.members?.first();
         const rol = args.slice(1);

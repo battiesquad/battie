@@ -32,6 +32,11 @@ export const setLoop: Command = {
         const channel = message.channel;
         const user = message.author;
 
+        if (!user) {
+            message.channel.send(`De Battiebot kan je geen DMs sturen`);
+            return;
+        }
+
         // Get timer name
         const loopName = args.shift()?.toString().toLowerCase();
         if (!loopName) {
@@ -60,10 +65,8 @@ export const setLoop: Command = {
             const message = args.join(" ") || null;
 
             const newInterval = setInterval(() => {
-                channel.send(
-                    `<@${
-                        user.id
-                    }>, je loop '${loopName}' geeft een melding! Bericht: ${
+                user.send(
+                    `Je loop '${loopName}' geeft een melding! Bericht: ${
                         message ? message : ""
                     }`
                 );
