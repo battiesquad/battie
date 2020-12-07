@@ -2,7 +2,9 @@ language: node_js
 node_js:
   - node
 
-script: npm start
+install:
+  - npm install
 
 deploy:
-  skip_cleanup: true
+  - script: npm start
+  - skip_cleanup: true
