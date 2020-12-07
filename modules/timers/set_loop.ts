@@ -27,7 +27,9 @@ const setNewLoop = (
 
 export const setLoop: Command = {
     name: "set_loop",
-    description: "set_loop <name> <h:m:s> [message]",
+    format: "set_loop <name> <h:m:s> [message]",
+    description:
+        "Plaatst een looping timer met de gegeven 'name' en 'tijd'. Je kunt een optioneel bericht toevoegen die bijv. als herinnering dient.",
     execute: (message, args) => {
         const channel = message.channel;
         const user = message.author;

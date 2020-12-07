@@ -27,7 +27,9 @@ const setNewTimer = (
 
 export const setTimer: Command = {
     name: "set_timer",
-    description: "set_timer <name> <h:m:s> [message]",
+    format: "set_timer <name> <h:m:s> [message]",
+    description:
+        "Plaatst een timer met de gegeven 'name' en 'tijd'. Je kunt een optioneel bericht toevoegen die bijv. als herinnering dient.",
     execute: (message, args) => {
         const channel = message.channel;
 

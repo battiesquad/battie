@@ -5,7 +5,8 @@ import { SOUND_FILES_DIR_REL_PATH } from "./sounds-module";
 
 export const getSound: Command = {
     name: "get_sound",
-    description: "geeft alle beschikbare sounds weer",
+    format: "get_sound",
+    description: "Geeft alle beschikbare geluiden weer van de soundboard.",
     execute(message, args) {
         const files = fs.readdirSync(path.join(__dirname, SOUND_FILES_DIR_REL_PATH));
         message.channel.send(

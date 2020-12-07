@@ -11,7 +11,7 @@ const isProductionEnv = process.env.NODE_ENV === "production";
 const client = new Discord.Client();
 
 // Set command prefix based on environment
-const COMMAND_PREFIX = isProductionEnv ? "-" : "b-";
+export const COMMAND_PREFIX = isProductionEnv ? "-" : "b-";
 
 // Get all desired commands that the server should handle
 export const commandList: Command[] = [
