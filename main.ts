@@ -54,4 +54,13 @@ client.on("message", (message) => {
     else return;
 });
 
-client.login("NzgyMDI1OTI4OTc2MzY3NjY3.X8GMZg.dJX4ixs_oVqVck9dPr3X7wWGDCc");
+if (process.env.NODE_ENV === "production" && process.env.ACCESS_TOKEN) {
+    client.login(process.env.ACCESS_TOKEN);
+} else {
+    try {
+        const { ACCESS_TOKEN } = require("./djs-key");
+        client.login(ACCESS_TOKEN);
+    } catch (error) {
+        console.error("No access token found");
+    }
+}
