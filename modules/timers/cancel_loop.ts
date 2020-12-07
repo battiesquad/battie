@@ -3,7 +3,8 @@ import { BattieTimer, loops } from "./timer-module";
 
 export const cancelLoop: Command = {
     name: "cancel_loop",
-    description: "cancel_loop <name>",
+    format: "cancel_loop <name>",
+    description: "Stopt de looping timer met de gegeven 'name'",
     execute: (message, args) => {
         const channel = message.channel;
         const user = message.author;

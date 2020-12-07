@@ -4,7 +4,8 @@ import { BattieTimer, timers } from "./timer-module";
 
 export const cancelTimer: Command = {
     name: "cancel_timer",
-    description: "cancel_timer <name>",
+    format: "cancel_timer <name>",
+    description: "Stopt de timer met de gegeven 'name'",
     execute: (message, args) => {
         const channel = message.channel;
         const user = message.author;

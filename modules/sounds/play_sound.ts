@@ -5,7 +5,8 @@ import { SOUND_FILES_DIR_REL_PATH } from "./sounds-module";
 
 export const playSound: Command = {
     name: "play_sound",
-    description: "speelt geluid (als het goed is)",
+    format: "play_sound <sound name>",
+    description: "Speelt het geluid af met 'sound name'.",
     execute(message, args) {
         if (!message.member?.voice.channel)
             return message.reply("Je moet in een spraak-kanaal zitten");

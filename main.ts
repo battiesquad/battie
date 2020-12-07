@@ -1,15 +1,21 @@
-import Discord, { TextChannel } from "discord.js";
+import Discord from "discord.js";
 import { Command } from "./models/Command";
+import { helpCommand } from "./modules/help";
 import { rolesCommands } from "./modules/roles/roles-module";
 import { soundsCommands } from "./modules/sounds/sounds-module";
 import { timerCommands } from "./modules/timers/timer-module";
 
+const isProductionEnv = process.env.NODE_ENV === "production";
+
 // Setup discord client
 const client = new Discord.Client();
-const COMMAND_PREFIX = "-";
+
+// Set command prefix based on environment
+export const COMMAND_PREFIX = isProductionEnv ? "-" : "b-";
 
 // Get all desired commands that the server should handle
-const commandList: Command[] = [
+export const commandList: Command[] = [
+    helpCommand,
     ...rolesCommands,
     ...timerCommands,
     ...soundsCommands,
@@ -22,15 +28,8 @@ const commands = new Discord.Collection<string, Command>();
 commandList.forEach((command) => commands.set(command.name, command));
 
 client.once("ready", () => {
+    client.user?.setUsername(`Battiebot${isProductionEnv ? "" : " (beta)"}`);
     console.log("Battiebot is aanwezig");
-
-    client.channels.fetch("658627143344848907").then((channel) => {
-        // Regard the channel as a text channel
-        const TextChannel = channel as TextChannel;
-
-        // Send introduction message
-        // TextChannel.send(`De battiebot is online <:pog:735838091788550164>`);
-    });
 });
 
 client.on("message", (message) => {
@@ -54,7 +53,7 @@ client.on("message", (message) => {
     else return;
 });
 
-if (process.env.NODE_ENV === "production" && process.env.ACCESS_TOKEN) {
+if (isProductionEnv && process.env.ACCESS_TOKEN) {
     client.login(process.env.ACCESS_TOKEN);
 } else {
     try {
