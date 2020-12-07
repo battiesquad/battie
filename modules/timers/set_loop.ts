@@ -20,6 +20,7 @@ const setNewLoop = (
         timeout: interval,
         message,
         timerFinishesOn: moment().add(seconds, "seconds"),
+        totalSeconds: seconds,
     };
 
     loops.get(user.id)!!.push(battieTimer);

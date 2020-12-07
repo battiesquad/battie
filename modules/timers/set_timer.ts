@@ -3,7 +3,7 @@ import { Command } from "../../models/Command";
 import { BattieTimer, timers } from "./timer-module";
 import moment from "moment";
 
-const setNewTimer = (
+export const addNewTimer = (
     timerName: string,
     timeout: NodeJS.Timeout,
     message: string | null,
@@ -20,10 +20,26 @@ const setNewTimer = (
         timeout,
         message,
         timerFinishesOn: moment().add(seconds, "seconds"),
+        totalSeconds: seconds,
     };
 
     timers.get(user.id)!!.push(battieTimer);
 };
+
+export function setNewTimer(
+    user: User,
+    timerName: string,
+    message: string | null,
+    totalSeconds: number
+) {
+    return setTimeout(() => {
+        user.send(
+            `Je timer '${timerName}' is afgelopen! Bericht: ${
+                message ? message : ""
+            }`
+        );
+    }, totalSeconds * 1000);
+}
 
 export const setTimer: Command = {
     name: "set_timer",
@@ -67,15 +83,14 @@ export const setTimer: Command = {
 
             const message = args.join(" ") || null;
 
-            const newTimer = setTimeout(() => {
-                user.send(
-                    `Je timer '${timerName}' is afgelopen! Bericht: ${
-                        message ? message : ""
-                    }`
-                );
-            }, totalSeconds * 1000);
+            const newTimer = setNewTimer(
+                user,
+                timerName,
+                message,
+                totalSeconds
+            );
 
-            setNewTimer(timerName!, newTimer, message, user, totalSeconds);
+            addNewTimer(timerName!, newTimer, message, user, totalSeconds);
 
             channel.send(
                 `Timer geplaatst voor <@${user}>. Timer loopt af over ${hours}:${minutes}:${seconds} (${totalSeconds} seconden)`
