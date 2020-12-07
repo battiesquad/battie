@@ -30,7 +30,7 @@ export const cancelTimer: Command = {
 
         clearTimeout(timer.timeout);
         const index = timers.get(user.id)?.indexOf(timer)!;
-        timers.get(user.id)?.splice(index);
+        timers.get(user.id)?.splice(index, 1);
 
         channel.send(`Timer met naam ${timerName} is uitgeschakeld`);
     },

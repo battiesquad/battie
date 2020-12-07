@@ -29,7 +29,7 @@ export const cancelLoop: Command = {
 
         clearTimeout(loop.timeout);
         const index = loops.get(user.id)?.indexOf(loop)!;
-        loops.get(user.id)?.splice(index);
+        loops.get(user.id)?.splice(index, 1);
 
         channel.send(`Loop met naam ${loopName} is uitgeschakeld`);
     },
