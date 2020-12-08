@@ -24,15 +24,15 @@ const buildTimerString: (battieTimers: BattieTimer[]) => string = (
     if (battieTimers?.length === 0) {
         finalString += "Je hebt nog geen timers geplaatst";
     } else {
-        finalString += "Je hebt de volgende timers geplaatst:\n```";
+        finalString += "Je hebt de volgende timers geplaatst:\n";
         battieTimers.forEach((battieTimer) => {
-            finalString += `naam: ${
+            finalString += `\`\`\`naam: ${
                 battieTimer.name
             }\nLoopt af over: ${buildTimeLeftString(
                 battieTimer.timerFinishesOn
             )}\nBericht: ${
                 battieTimer.message ? battieTimer.message : ""
-            } \`\`\`\n`;
+            } \`\`\``;
         });
     }
 
